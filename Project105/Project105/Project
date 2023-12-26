@@ -1,0 +1,31 @@
+import os
+import cv2
+
+path = "C:\Users\CRISILJEFV GARRIDO\Downloads\Project105\Project105\Images"
+Images = []
+
+for file in os.listdir(path):
+    name, ext = os.path.splitext(file)
+    if ext.lower() in ['.jpg', '.jpeg', '.png', '.gif']:
+        file_name = os.path.join(path, file)
+        Images.append(file_name)
+
+count = len(Images)
+
+if count == 0:
+    print("No images found in the specified folder.")
+else:
+    frame = cv2.imread(Images[0])
+    width, height, channels = frame.shape
+    size = (width, height)
+    print("Image size:", size)
+
+    out = cv2.VideoWriter('FriendshipDayVideo.avi', cv2.VideoWriter_fourcc(*'DIVX'), 1.0, size)
+
+    for i in range(0, count):
+        img = cv2.imread(Images[i])
+        out.write(img)
+
+    print("Friendship Day Video created successfully!")
+
+    out.release()
